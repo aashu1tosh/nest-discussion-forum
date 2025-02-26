@@ -1,6 +1,6 @@
 import { ConfigService } from '@nestjs/config';
 import { Environment } from 'src/constants/enum';
-import winston, { format } from 'winston';
+import { format, transports, createLogger as winstonCreateLogger } from 'winston';
 
 const { combine, timestamp, colorize, printf } = format;
 
@@ -10,42 +10,33 @@ const levels = {
     info: 2,
     http: 3,
     debug: 4,
-}
-
-const colors = {
-    error: 'red',
-    warn: 'yellow',
-    info: 'green',
-    http: 'magenta',
-    debug: 'white',
-}
+};
 
 const getLogLevel = (configService: ConfigService) => {
-    const env = configService.get('NODE_ENV') ?? Environment.DEVELOPMENT
-    const isDevelopment = env === Environment.DEVELOPMENT
-    return isDevelopment ? 'debug' : 'warn'
-}
+    const env = configService.get('NODE_ENV') ?? Environment.DEVELOPMENT;
+    return env === Environment.DEVELOPMENT ? 'debug' : 'warn';
+};
 
 const logFormat = combine(
     timestamp({ format: 'YYYY-MM-DD HH:mm:ss:ms' }),
     colorize({ all: true }), // Enable color for all levels
     printf((info) => `${info.timestamp} ${info.level}: ${info.message}`)
-)
+);
 
-const transports = [
-    new winston.transports.Console(),
-    new winston.transports.File({
+const loggerTransports = [
+    new transports.Console(),
+    new transports.File({
         filename: 'log/error.log',
         level: 'error',
     }),
-    new winston.transports.File({ filename: 'log/all.log' }),
-]
+    new transports.File({ filename: 'log/all.log' }),
+];
 
 export const createLogger = (configService: ConfigService) => {
-    return winston.createLogger({
+    return winstonCreateLogger({
         level: getLogLevel(configService),
         levels,
-        format: logFormat, // Use the custom log format
-        transports,
-    })
-}
+        format: logFormat,
+        transports: loggerTransports,
+    });
+};
