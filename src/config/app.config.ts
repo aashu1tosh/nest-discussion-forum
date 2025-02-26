@@ -7,7 +7,7 @@ import { morganMiddleware } from 'src/middleware/morgan.middleware';
 export async function createApp(): Promise<INestApplication> {
     const app = await NestFactory.create(AppModule);
 
-
+    app.setGlobalPrefix('api/v1');
     app.enableCors();
     app.use(morganMiddleware);
 

@@ -9,18 +9,14 @@ import { HttpExceptionFilter } from './middleware/httpException.middleware';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal: true, // Makes ConfigService available globally
+      isGlobal: true,
     }),
     TypeOrmModule.forRootAsync(DBConfigAsync)
   ],
   controllers: [AppController],
   providers: [
     HttpExceptionFilter,
-    // {
-    //   provide: 'LOGGER',
-    //   useFactory: (configService: ConfigService) => createLogger(configService),
-    //   inject: [ConfigService],
-    // },
+
     AppService],
 })
 export class AppModule { }
