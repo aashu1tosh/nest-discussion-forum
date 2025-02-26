@@ -13,7 +13,7 @@ export default class DBConfig {
             username: configService.get('DATABASE_USERNAME'),
             password: configService.get('DATABASE_PASSWORD'),
             database: configService.get('DATABASE_NAME'),
-            entities: [__dirname, '/../entities/**/*.entity.{js,ts}'],
+            entities: [__dirname, '/../modules/**/*.entity.{js,ts}'],
             synchronize: true,
         };
     }

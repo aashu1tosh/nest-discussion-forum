@@ -18,11 +18,14 @@ export class HttpExceptionFilter implements ExceptionFilter {
         if (exception instanceof HttpException) {
             const message: any = exception.getResponse();
             const status = exception.getStatus() || HttpStatus.INTERNAL_SERVER_ERROR;
-
+            const formattedMessage =
+                Array.isArray(message?.message)
+                    ? message?.message.join(', ')
+                    : message;
             return response.status(status).json({
                 status: false,
                 timestamp,
-                message: message?.message ?? message,
+                message: formattedMessage,
                 data: message?.errors,
             });
         }
