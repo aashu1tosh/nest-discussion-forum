@@ -25,8 +25,8 @@ export class Auth extends Base {
     @Column({ nullable: true, select: false })
     token: string;
 
-    @Column({ name: 'otp_verified', default: false, select: false })
-    otpVerified: boolean;
+    @Column({ name: 'is_otp_verified', default: false, select: false })
+    isOtpVerified: boolean;
 
     @Column({ name: 'is_blocked', default: false, select: false })
     isBlocked: boolean;
