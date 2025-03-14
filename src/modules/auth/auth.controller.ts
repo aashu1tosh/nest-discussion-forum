@@ -43,7 +43,6 @@ export class AuthController {
     @Post('register')
     @HttpCode(HttpStatus.CREATED)
     async register(@Body() data: RegisterDTO) {
-        console.log(data.email)
         await this.authService.register(data);
 
         return {
