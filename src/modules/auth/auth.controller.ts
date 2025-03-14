@@ -43,7 +43,7 @@ export class AuthController {
     @Post('register')
     async register(@Body() data: RegisterDTO) {
         console.log(data.email)
-        const auth = await this.authService.register(data);
+        await this.authService.register(data);
 
         return {
             status: true,
