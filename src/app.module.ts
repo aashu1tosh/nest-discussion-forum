@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import { DBConfigAsync } from './config/database.config';
 import { HttpExceptionFilter } from './middleware/httpException.middleware';
 import { AuthModule } from './modules/auth/auth.module';
+import { JwtService } from './modules/jwt/jwt.service';
 
 
 @Module({
@@ -20,6 +21,7 @@ import { AuthModule } from './modules/auth/auth.module';
   providers: [
     HttpExceptionFilter,
     AppService,
-],
+    JwtService,
+  ],
 })
 export class AppModule { }

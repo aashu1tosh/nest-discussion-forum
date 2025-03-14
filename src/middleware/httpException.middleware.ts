@@ -6,6 +6,7 @@ import {
     HttpStatus
 } from '@nestjs/common';
 import { Response } from 'express';
+import Logger from 'src/helpers/log.helpers';
 
 @Catch()
 export class HttpExceptionFilter implements ExceptionFilter {
@@ -30,6 +31,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
             });
         }
 
+        Logger.error(exception);
         return response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
             status: false,
             timestamp,
