@@ -3,8 +3,7 @@ import {
     TypeOrmModuleAsyncOptions,
     TypeOrmModuleOptions,
 } from '@nestjs/typeorm';
-import { Auth } from 'src/modules/auth/entity/auth.entity';
-import { AuthDetails } from 'src/modules/auth/entity/detail.entity';
+import path from 'path';
 import { DataSourceOptions } from 'typeorm';
 
 export default class DBConfig {
@@ -16,9 +15,10 @@ export default class DBConfig {
             username: configService.get('DATABASE_USERNAME'),
             password: configService.get('DATABASE_PASSWORD'),
             database: configService.get('DATABASE_NAME'),
-            // entities: [__dirname, '/../modules/**/*.entity.{js,ts}'],
-            entities: [Auth, AuthDetails],
+            entities: [path.join(__dirname, '..', 'modules', '**', 'entity', '*.entity.{js,ts}')],
             synchronize: true,
+            logging: false,
+            dropSchema: false,
         };
     }
 

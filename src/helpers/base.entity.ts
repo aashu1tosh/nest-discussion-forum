@@ -1,8 +1,8 @@
-import { BaseEntity, CreateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { BaseEntity, Column, CreateDateColumn, DeleteDateColumn, UpdateDateColumn } from 'typeorm';
 
 abstract class Base extends BaseEntity {
-    @PrimaryGeneratedColumn()
-    id: number;
+    @Column({ primary: true, type: 'uuid', generated: 'uuid' })
+    id: string;
 
     @CreateDateColumn({ name: 'created_at' })
     createdAt: Date;
