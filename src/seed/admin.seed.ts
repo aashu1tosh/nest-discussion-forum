@@ -51,10 +51,7 @@ export async function seedAdmins(): Promise<void> {
             await seedAdmin(admin as Auth);
         }
     } catch (error) {
-        console.log('Failed to seed admin 💣');
-        console.error(error);
-    } finally {
-        process.exit(0);
+        Logger.error('Failed to seed admin 💣');
     }
 }
 
