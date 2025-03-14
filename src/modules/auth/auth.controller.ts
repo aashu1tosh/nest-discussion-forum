@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import type { Request, Response } from 'express';
 import { JwtService } from '../jwt/jwt.service';
 import { AuthService } from './auth.service';
-import { LogInDTO } from './dto/auth.dto';
+import { LogInDTO, RegisterDTO } from './dto/auth.dto';
 
 
 @Controller('auth')
@@ -38,6 +38,18 @@ export class AuthController {
             status: true,
             message: 'Login successful',
         };
+    }
+
+    @Post('register')
+    async register(@Body() data: RegisterDTO) {
+        console.log(data.email)
+        const auth = await this.authService.register(data);
+
+        return {
+            status: true,
+            message: 'Registration successful',
+        };
+
     }
 
     @Post('refresh-token')

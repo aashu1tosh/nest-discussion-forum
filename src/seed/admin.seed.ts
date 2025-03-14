@@ -22,12 +22,10 @@ async function seedAdmin(data: Auth) {
             },
         });
 
-        if (alreadyExist) throw new Error(`${data?.email} Email already used.`);
+        if (alreadyExist) return;
 
         if (uniquePhoneNumber)
-            throw new Error(
-                `${data?.details?.phoneNumber} Phone number already used`
-            );
+            return;
 
         const user = authRepo.create(data);
         user.isOtpVerified = true;
