@@ -1,5 +1,5 @@
 import { ConfigService } from '@nestjs/config';
-import * as morgan from 'morgan'; // Use named import
+import morgan from 'morgan'; // Use named import
 import { createLogger } from 'src/config/logger.config';
 import { Environment } from 'src/constants/enum';
 
@@ -21,5 +21,5 @@ const skip = (): boolean => {
 // Use the `combined` format as recommended
 export const morganMiddleware = morgan('combined', {
     stream,
-    skip,
+    // skip,
 });

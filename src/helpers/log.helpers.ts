@@ -1,5 +1,5 @@
 import { ConfigService } from '@nestjs/config';
-import * as chalk from 'chalk';
+import chalk from 'chalk';
 import { createLogger } from 'src/config/logger.config';
 import { Environment } from 'src/constants/enum';
 

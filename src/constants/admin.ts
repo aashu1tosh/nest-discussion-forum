@@ -1,21 +1,14 @@
+import { IAuth } from 'src/modules/auth/interface/auth.interface';
 import { ROLE } from './enum';
 
-export interface IUser {
-    email: string;
-    password: string;
-    role: ROLE;
-    details: {
-        firstName: string;
-        middleName: string;
-        lastName: string;
-        phoneNumber: string;
-    };
-}
-export const admins: IUser[] = [
+
+export const admins: IAuth[] = [
     {
         email: 'admin@aashutosh.com',
         password: 'Admin@123',
         role: ROLE.ADMIN,
+        isOtpVerified: true,
+        isBlocked: false,
         details: {
             firstName: 'Aashutosh',
             middleName: '',

@@ -1,8 +1,12 @@
-import DBConfig from "src/config/database.config";
-import { BcryptService } from "src/helpers/bcrypt.service";
+import 'reflect-metadata';
+import { AppDataSource } from "src/config/dataSource.config";
+import { admins } from "src/constants/admin";
 import Logger from "src/helpers/log.helpers";
+import { Auth } from "src/modules/auth/entity/auth.entity";
+import { AuthDetails } from "src/modules/auth/entity/detail.entity";
+import { BcryptService } from "src/modules/bcrypt/bcrypt.service";
 
-const authRepo = DBCOn.getRepository(Auth);
+const authRepo = AppDataSource.getRepository(Auth);
 const authDetailsRepo = AppDataSource.getRepository(AuthDetails);
 const bcryptService = new BcryptService();
 
@@ -26,9 +30,11 @@ async function seedAdmin(data: Auth) {
             );
 
         const user = authRepo.create(data);
-        user.otpVerified = true;
+        user.isOtpVerified = true;
         let details = authDetailsRepo.create(data.details);
-        user.password = await bcryptService.hash(data.password);
+        const password = await bcryptService.hash(data.password);
+        console.log("🚀 ~ seedAdmin ~ password:", password)
+        user.password = password
         user.details = details;
         await authDetailsRepo.save(details);
         await authRepo.save(user);
@@ -38,7 +44,7 @@ async function seedAdmin(data: Auth) {
     }
 }
 
-async function seedAdmins(admins: IAuth[]): Promise<void> {
+export async function seedAdmins(): Promise<void> {
     try {
         await AppDataSource.initialize();
         for (const admin of admins) {
@@ -52,15 +58,3 @@ async function seedAdmins(admins: IAuth[]): Promise<void> {
     }
 }
 
-const args = process.argv[2];
-if (!args) {
-    console.error('Please provide an argument');
-    process.exit(1);
-}
-
-if (args === 'seed') {
-    void seedAdmins(admins);
-} else {
-    console.error('Invalid argument');
-    process.exit(1);
-}
