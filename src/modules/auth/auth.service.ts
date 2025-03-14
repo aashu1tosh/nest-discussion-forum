@@ -16,17 +16,12 @@ export class AuthService {
         const { email, password } = data;
 
         const check = await this.authRepo.createQueryBuilder('auth')
-            .select(['auth.id', 'auth.email', 'auth.password'])
+            .select(['auth.id', 'auth.email', 'auth.password', 'auth.role'])
             .where('auth.email = :email', { email })
             .getOne();
 
         if (!check)
             throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED);
-
-        if (email === 'admin' && password === 'password') {
-            return { message: 'Login successful' };
-        }
-        console.log("🚀 ~ AuthService ~ login ~ check:", check)
 
         const isPasswordMatched = await this.bcryptService.compare(
             password,
@@ -37,5 +32,17 @@ export class AuthService {
             return check;
         }
         throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED);
+    }
+
+    async me(id: string): Promise<any> {
+        const user = await this.authRepo.createQueryBuilder('auth')
+            .select(['auth.id', 'auth.email', 'auth.role'])
+            .where('auth.id = :id', { id })
+            .getOne();
+
+        if (!user)
+            throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+
+        return user;
     }
 }
