@@ -6,5 +6,6 @@ export enum Environment {
 export enum ROLE {
     USER = 'USER',
     ADMIN = 'ADMIN',
+    SUDO_ADMIN = 'SUDO_ADMIN',
     MODERATOR = 'MODERATOR',
 }

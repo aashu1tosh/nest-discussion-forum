@@ -6,7 +6,7 @@ export const admins: IAuth[] = [
     {
         email: 'admin@aashutosh.com',
         password: 'Admin@123',
-        role: ROLE.ADMIN,
+        role: ROLE.SUDO_ADMIN,
         isOtpVerified: true,
         isBlocked: false,
         details: {
