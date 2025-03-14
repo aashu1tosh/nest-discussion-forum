@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Req, Res } from '@nestjs/common';
+import { Body, Controller, HttpCode, HttpStatus, Post, Req, Res } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import type { Request, Response } from 'express';
 import { JwtService } from '../jwt/jwt.service';
@@ -41,6 +41,7 @@ export class AuthController {
     }
 
     @Post('register')
+    @HttpCode(HttpStatus.CREATED)
     async register(@Body() data: RegisterDTO) {
         console.log(data.email)
         await this.authService.register(data);
