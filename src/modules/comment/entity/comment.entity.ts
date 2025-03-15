@@ -4,7 +4,7 @@ import { Post } from 'src/modules/posts/entity/posts.entity';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 
 
-@Entity('Comment')
+@Entity('comment')
 export class Comment extends Base {
     @Column()
     comment: string;

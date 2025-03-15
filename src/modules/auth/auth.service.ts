@@ -56,6 +56,7 @@ export class AuthService {
             .where('auth.id = :id', { id })
             .getOne();
 
+        console.log(user);
         if (!user)
             throw new HttpException('User not found', HttpStatus.NOT_FOUND);
 
