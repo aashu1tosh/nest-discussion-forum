@@ -5,9 +5,12 @@ import { successResponse } from 'src/helpers/successResponse.helper';
 import { IJwtPayload } from '../jwt/jwt.interface';
 import { CreatePostDTO } from './dto/posts.dto';
 import { PostsService } from './posts.service';
+import { Authorization } from 'src/decorator/middleware/authorization.decorator';
+import { ROLE } from 'src/constants/enum';
 
 @Controller('posts')
 @Authentication()
+@Authorization([ROLE.USER])
 export class PostsController {
 
     constructor(
