@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { AppDataSource } from "src/config/dataSource.config";
 import { admins } from "src/constants/admin";
-import Logger from "src/helpers/log.helpers";
+import Logger from "src/helpers/log.helper";
 import { Auth } from "src/modules/auth/entity/auth.entity";
 import { AuthDetails } from "src/modules/auth/entity/detail.entity";
 import { BcryptService } from "src/modules/bcrypt/bcrypt.service";

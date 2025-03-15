@@ -1,6 +1,6 @@
 import { ConfigService } from "@nestjs/config";
 import { createApp } from "./config/app.config";
-import Logger from "./helpers/log.helpers";
+import Logger from "./helpers/log.helper";
 import { seed } from "./seed/index.seed";
 
 async function bootstrap() {
