@@ -1,4 +1,4 @@
-import { IsArray, IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { IsArray, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 import { IsNotBlank } from "src/decorator/dto/isNotBlank.dto";
 
 
@@ -17,5 +17,20 @@ export class CreatePostDTO {
     @IsArray()
     @IsString({ each: true })
     tags: string[];
+}
+
+export class GetPostsDTO {
+
+    @IsOptional()
+    @IsNumber()
+    page: number;
+
+    @IsOptional()
+    @IsNumber()
+    perPage: number;
+
+    @IsOptional()
+    @IsString()
+    search: string;
 }
 

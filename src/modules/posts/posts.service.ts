@@ -13,6 +13,33 @@ export class PostsService {
         private authService: AuthService
     ) { }
 
+    async getPosts({
+        page,
+        perPage,
+        search
+    }: { page: number, perPage: number, search?: string }): Promise<[Post[], number]> {
+
+        const query = this.postRepo
+            .createQueryBuilder('post')
+            .select(['post.id', 'post.title', 'post.description', 'post.createdAt'])
+            .leftJoin('post.auth', 'auth')
+            .addSelect(['auth.id', 'auth.email']);
+
+        if (search) {
+            query
+                .where('post.title LIKE :search', { search: `%${search}%` })
+                .orWhere('post.description LIKE :search', { search: `%${search}%` })
+                .orWhere('post.tags LIKE :search', { search: `%${search}%` })
+        }
+
+        return query
+            .skip((page - 1) * perPage)
+            .take(perPage)
+            .orderBy('post.createdAt', 'DESC')
+            .getManyAndCount();
+    }
+
+
 
     async createPost(data: CreatePostDTO, { id }: { id: string }): Promise<void> {
         const post = new Post();
