@@ -50,6 +50,18 @@ export class AuthService {
         return user;
     }
 
+    async check(id: string): Promise<Auth> {
+        const user = await this.authRepo.createQueryBuilder('auth')
+            .select(['auth.id'])
+            .where('auth.id = :id', { id })
+            .getOne();
+
+        if (!user)
+            throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+
+        return user;
+    }
+
     async register(data: RegisterDTO): Promise<void> {
 
         const check = await this.authRepo.createQueryBuilder('auth')

@@ -1,6 +1,7 @@
 import { ROLE } from "src/constants/enum";
 import Base from "src/helpers/base.entity";
-import { Column, Entity, OneToOne } from "typeorm";
+import { Post } from "src/modules/posts/entity/posts.entity";
+import { Column, Entity, OneToMany, OneToOne } from "typeorm";
 import { AuthDetails } from "./detail.entity";
 
 @Entity('auth')
@@ -30,4 +31,7 @@ export class Auth extends Base {
 
     @Column({ name: 'is_blocked', default: false, select: false })
     isBlocked: boolean;
+
+    @OneToMany(() => Post, (post) => post.auth)
+    posts: Post[];
 }

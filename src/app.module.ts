@@ -7,6 +7,8 @@ import { DBConfigAsync } from './config/database.config';
 import { HttpExceptionFilter } from './middleware/httpException.middleware';
 import { AuthModule } from './modules/auth/auth.module';
 import { JwtService } from './modules/jwt/jwt.service';
+import { PostsModule } from './modules/posts/posts.module';
+import { CommentModule } from './modules/comment/comment.module';
 
 
 @Module({
@@ -15,7 +17,9 @@ import { JwtService } from './modules/jwt/jwt.service';
       isGlobal: true,
     }),
     TypeOrmModule.forRootAsync(DBConfigAsync),
-    AuthModule
+    AuthModule,
+    PostsModule,
+    CommentModule
   ],
   controllers: [AppController],
   providers: [
