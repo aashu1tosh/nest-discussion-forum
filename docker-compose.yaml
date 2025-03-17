@@ -9,7 +9,7 @@ services:
       - /usr/app/backend/node_modules
     env_file: .env.docker
     ports:
-      - '5050:5050'
+      - '5050:3000'
     depends_on:
       - postgres
     networks:
